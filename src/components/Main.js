@@ -1,17 +1,18 @@
 import * as React from 'react';
+import propTypes from 'prop'
 
-const Main = (props) => {
+const Main = ({name, login}) => {
     return (
         <div>
             <p>
-            Hello {props.name}<br/>
+            Hello {name}<br/>
             Do you want to see the secret area? <a href="/secret">Click here</a>
             </p>
             <div>
                 <hr/>
                 Please login first
                 <hr/>
-                <button>Login</button>
+                <button onClick={login}>Login</button>
             </div>
         </div>
     );
