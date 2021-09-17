@@ -1,3 +1,4 @@
+  /* eslint no-restricted-globals: 0 */
 import {useState} from 'react';
 import logo from './logo.svg';
 import './App.css';
@@ -9,7 +10,6 @@ import useAuth from './useAuth';
 
 function App() {
   const {auth,login, isAuthenticated} = useAuth();
-  /* eslint no-restricted-globals: 0 */
   const [state] = useState({
     name: 'Jonny',
     location: location.pathname.replace(/^\/?|\/$/g,''), 
