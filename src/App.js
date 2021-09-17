@@ -9,19 +9,21 @@ import Callback from './components/Callback';
 import useAuth from './useAuth';
 
 function App() {
-  const {auth,login, isAuthenticated} = useAuth();
+  const {auth,login,logout, isAuthenticated} = useAuth();
   const [state] = useState({
     name: 'Jonny',
     location: location.pathname.replace(/^\/?|\/$/g,''), 
     auth, 
-    login
+    login,
+    logout,
+    isAuthenticated
   });
 
   // simple rounting
   const routing = {
     '': <Main {...state}/>,
     'callback': <Callback/>,
-    'secret': isAuthenticated() ? <Secret/> : <NoFound/>,
+    'secret': isAuthenticated() ? <Secret logout={logout}/> : <NoFound/>,
     'default': <NoFound/>
   };
 

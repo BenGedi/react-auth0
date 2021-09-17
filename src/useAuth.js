@@ -22,7 +22,6 @@ function useAuth() {
     }
 
     function handleAuthentication() {
-        debugger;
         auth0.parseHash((err,authResult) => {
             if(authResult?.accessToken && authResult?.idToken) {
                 const expiresAt = JSON.stringify((authResult.expiresIn) * 1000 + new Date().getTime());
@@ -43,9 +42,17 @@ function useAuth() {
         return new Date().getTime() < expiresAt;
     }
 
+    function logout() {
+        localStorage.removeItem('access_token')
+        localStorage.removeItem('id_token')
+        localStorage.removeItem('expires_at');
+        location.pathname = LOGIN_FAILURE_PAGE;
+    }
+
     return ({
         auth: auth0,
         login,
+        logout,
         handleAuthentication,
         isAuthenticated
     });
