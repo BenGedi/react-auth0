@@ -7,15 +7,15 @@ import NoFound from './components/NoFound';
 import Callback from './components/Callback';
 import useAuth from './useAuth';
 
-/* eslint no-restricted-globals: 0 */
-const initialState = {
-  name: 'Jonny',
-  location: location.pathname.replace(/^\/?|\/$/g,'')
-};
-
 function App() {
-  const {auth0,login} = useAuth();
-  const [state] = useState(initialState);
+  const {auth,login} = useAuth();
+  /* eslint no-restricted-globals: 0 */
+  const [state] = useState({
+    name: 'Jonny',
+    location: location.pathname.replace(/^\/?|\/$/g,''), 
+    auth, 
+    login
+  });
 
   // simple rounting
   const routing = {

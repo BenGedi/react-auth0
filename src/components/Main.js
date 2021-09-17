@@ -1,5 +1,5 @@
 import * as React from 'react';
-import propTypes from 'prop'
+import PropTypes from 'prop-types';
 
 const Main = ({name, login}) => {
     return (
@@ -16,6 +16,11 @@ const Main = ({name, login}) => {
             </div>
         </div>
     );
+};
+
+Main.propTypes = {
+    name: PropTypes.string,
+    login: PropTypes.func
 };
 
 export default Main;
