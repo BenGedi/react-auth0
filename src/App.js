@@ -8,7 +8,7 @@ import Callback from './components/Callback';
 import useAuth from './useAuth';
 
 function App() {
-  const {auth,login} = useAuth();
+  const {auth,login, isAuthenticated} = useAuth();
   /* eslint no-restricted-globals: 0 */
   const [state] = useState({
     name: 'Jonny',
@@ -21,7 +21,7 @@ function App() {
   const routing = {
     '': <Main {...state}/>,
     'callback': <Callback/>,
-    'secret': <Secret/>,
+    'secret': isAuthenticated() ? <Secret/> : <NoFound/>,
     'default': <NoFound/>
   };
 

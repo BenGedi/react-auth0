@@ -1,5 +1,9 @@
+/* eslint no-restricted-globals: 0 */
 import {useState} from 'react';
 import auth0js from 'auth0-js';
+
+const LOGIN_SUCCESS_PAGE = '/secret';
+const LOGIN_FAILURE_PAGE = '/';
 
 const initAuth = new auth0js.WebAuth({
     domain: 'ben-gedi.eu.auth0.com', // the application id on auth0
@@ -11,11 +15,39 @@ const initAuth = new auth0js.WebAuth({
 });
 
 function useAuth() {
-    const [auth] = useState(initAuth);
+    const [auth0] = useState(initAuth);
+
+    function login() {
+        auth0.authorize()
+    }
+
+    function handleAuthentication() {
+        debugger;
+        auth0.parseHash((err,authResult) => {
+            if(authResult?.accessToken && authResult?.idToken) {
+                const expiresAt = JSON.stringify((authResult.expiresIn) * 1000 + new Date().getTime());
+                localStorage.setItem('access_token', authResult.accessToken);
+                localStorage.setItem('id_token', authResult.idToken);
+                localStorage.setItem('expires_at', expiresAt);
+                location.pathname = LOGIN_SUCCESS_PAGE;
+            } else {
+                location.pathname = LOGIN_FAILURE_PAGE;
+                console.log(err);
+            }
+        })
+    }
+
+    function isAuthenticated() {
+        const expiresAt = localStorage.getItem('expires_at');
+
+        return new Date().getTime() < expiresAt;
+    }
 
     return ({
-        auth,
-        login: () => auth.authorize()
+        auth: auth0,
+        login,
+        handleAuthentication,
+        isAuthenticated
     });
 }
 
