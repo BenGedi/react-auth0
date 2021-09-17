@@ -4,8 +4,15 @@ const Main = (props) => {
     return (
         <div>
             <p>
-            Hello {props.name} Edit <code>src/App.js</code> and save to reload.
+            Hello {props.name}<br/>
+            Do you want to see the secret area? <a href="/secret">Click here</a>
             </p>
+            <div>
+                <hr/>
+                Please login first
+                <hr/>
+                <button>Login</button>
+            </div>
         </div>
     );
 };
